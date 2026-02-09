@@ -2,7 +2,7 @@
 // --------------------
 // Database config
 // --------------------
-$host = "localhost";
+$host = "119.110.207.26";
 $dbname = "eis";
 $user = "pn";
 $pass = "4321";

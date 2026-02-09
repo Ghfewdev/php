@@ -110,13 +110,42 @@
         </div>
       </a>
 
+     <!-- ระบบคิว -->
+<!-- Icon: Hospital Queue System -->
+      <a href="click.php?id=queue" target="_blank" class="px-6 py-2">
+        <div class="flex flex-col items-center justify-center pb-4">
+		<img src="images/queue.png" alt="cars" width="120" height="120">
+          <h1 class="text-lg font-bold text-center">
+            ระบบคิวโรงพยาบาล
+          </h1>
+        </div>
+      </a>
+
+
     </div>
 
     <br><br>
 
   </div>
-<center style="margin: 50px;">
-<a href="stats.php" target="_blank">สถิติการเข้าชม</a>
-</center>
+<center style="margin: 10px;">
+<div class="flex justify-center mt-12">
+  <a href="stats.php"
+     target="_blank"
+     class="inline-flex items-center gap-2
+            bg-green-600 hover:bg-green-700
+            text-yellow-300 font-semibold
+            px-8 py-4 rounded-xl
+            shadow-lg hover:shadow-xl
+            transition duration-200">
+
+    <!-- Icon -->
+    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M3 3h2v18H3V3zm16 8h2v10h-2V11zM11 13h2v8h-2v-8zM7 9h2v12H7V9zm8-6h2v18h-2V3z"/>
+    </svg>
+
+    สถิติการเข้าชม
+  </a>
+</div></center>
+<br><br><br><br><br>
 </body>
 </html>
