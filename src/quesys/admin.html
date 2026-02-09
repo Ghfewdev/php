@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - เลือกคลินิกที่แสดง</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6">
+    <h1 class="text-2xl font-bold mb-2">
+      ⚙️ Admin Panel
+    </h1>
+    <p class="text-gray-500 mb-6">
+      เลือกคลินิกที่ต้องการแสดงบน Dashboard / TV
+    </p>
+
+    <div class="flex gap-3 mb-4">
+      <button
+        onclick="selectAll(true)"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg"
+      >
+        เลือกทั้งหมด
+      </button>
+      <button
+        onclick="selectAll(false)"
+        class="px-4 py-2 bg-gray-300 rounded-lg"
+      >
+        ยกเลิกทั้งหมด
+      </button>
+    </div>
+
+    <div id="clinic-list" class="space-y-3 mb-6"></div>
+
+    <button
+      onclick="saveSelection()"
+      class="w-full py-3 bg-green-600 text-white rounded-xl text-lg font-semibold"
+    >
+      💾 บันทึกการตั้งค่า
+    </button>
+
+    <p id="status" class="text-center text-green-600 mt-4 hidden">
+      ✔ บันทึกเรียบร้อย
+    </p>
+  </div>
+
+<script>
+const API_URL = "http://192.168.19.226:3000/queues";
+const STORAGE_KEY = "selectedClinics";
+
+let clinics = [];
+
+function loadClinics() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+      clinics = data;
+      renderList();
+    });
+}
+
+function renderList() {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  const container = document.getElementById("clinic-list");
+  container.innerHTML = "";
+
+  clinics.forEach(item => {
+    const checked = saved.length === 0 || saved.includes(item.orders);
+
+    const row = document.createElement("label");
+    row.className =
+      "flex items-center justify-between border rounded-lg px-4 py-3 cursor-pointer";
+
+    row.innerHTML = `
+      <div>
+        <p class="font-semibold">${item.name}</p>
+        <p class="text-sm text-gray-500">
+          รอ ${item.waiting} | เสร็จ ${item.done}
+        </p>
+      </div>
+      <input
+        type="checkbox"
+        value="${item.orders}"
+        class="w-5 h-5"
+        ${checked ? "checked" : ""}
+      />
+    `;
+
+    container.appendChild(row);
+  });
+}
+
+function selectAll(value) {
+  document
+    .querySelectorAll("#clinic-list input[type=checkbox]")
+    .forEach(cb => (cb.checked = value));
+}
+
+function saveSelection() {
+  const selected = Array.from(
+    document.querySelectorAll("#clinic-list input:checked")
+  ).map(cb => Number(cb.value));
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
+
+  const status = document.getElementById("status");
+  status.classList.remove("hidden");
+  window.location.href="./index.html";
+  setTimeout(() => status.classList.add("hidden"), 2000);
+}
+
+loadClinics();
+</script>
+
+</body>
+</html>

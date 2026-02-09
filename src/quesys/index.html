@@ -1,0 +1,246 @@
+<!-- 
+index.html                      → 🖥 PC แนวนอน (เหมือนเดิม)
+index.html?mode=tv              → 📺 TV แนวนอน (เหมือนเดิม)
+index.html?layout=vt            → 🖥 PC แนวตั้ง (ไม่ auto scroll)
+index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉพาะคลินิก) 
+-->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - สถานะคิวผู้ป่วย</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            waiting: '#f59e0b',
+            done: '#22c55e',
+            total: '#3b82f6',
+            summary: '#0f172a'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-100 min-h-screen text-lg">
+
+<!-- ================= HEADER ================= -->
+<header class="bg-white shadow-md px-6 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-4">
+    <a href="./admin.html">
+    <img src="logo.png" class="h-14 w-14 object-contain" />
+  </a>
+    <div>
+      <h1 class="text-2xl font-bold text-gray-800">
+        ระบบแสดงสถานะคิวผู้ป่วย
+      </h1>
+      <p class="text-sm text-gray-500">Dashboard ภาพรวมการให้บริการ</p>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <p class="text-sm text-gray-500">วันเวลาปัจจุบัน</p>
+    <p id="datetime" class="text-xl font-semibold text-blue-600"></p>
+  </div>
+</header>
+
+<!-- ================= SUMMARY ================= -->
+<section class="bg-summary text-white px-6 py-4">
+  <div id="summaryGrid"
+    class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+    <div>
+      <p id="sumWaiting" class="text-3xl font-bold">0</p>
+      <p class="opacity-80">รอทั้งหมด</p>
+    </div>
+    <div>
+      <p id="sumDone" class="text-3xl font-bold text-green-400">0</p>
+      <p class="opacity-80">เสร็จแล้ว</p>
+    </div>
+    <div>
+      <p id="sumTotal" class="text-3xl font-bold text-blue-400">0</p>
+      <p class="opacity-80">ทั้งหมด</p>
+    </div>
+    <div>
+      <p id="sumPercent" class="text-3xl font-bold text-yellow-400">0%</p>
+      <p class="opacity-80">ความคืบหน้า</p>
+    </div>
+    <div>
+      <p id="sumAvg" class="text-3xl font-bold text-pink-400">0</p>
+      <p class="opacity-80">เวลารอเฉลี่ย (นาที)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTENT ================= -->
+<main class="p-6">
+
+  <!-- ===== แนวนอน (PC + TV เดิม) ===== -->
+  <section id="horizontalSection"
+    class="bg-white rounded-xl shadow-lg p-4 overflow-hidden">
+    <h2 class="text-xl font-bold mb-3 px-2">🏥 สถานะคิวรายคลินิก</h2>
+
+    <!-- PC -->
+    <div id="pcList"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <!-- TV -->
+    <div id="tvWrapper" class="relative overflow-hidden hidden">
+      <div id="clinicBanner" class="flex gap-6 py-4"></div>
+    </div>
+  </section>
+
+  <!-- ===== แนวตั้ง (scroll เฉพาะคลินิก) ===== -->
+  <section id="verticalSection" class="hidden">
+    <div id="verticalList"
+      class="grid grid-cols-1 gap-4 p-4 overflow-y-auto"
+      style="height: calc(100vh - 230px);">
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+/* ---------- CONFIG ---------- */
+const API_URL = "http://192.168.19.226:3000/queues";
+const STORAGE_KEY = "selectedClinics";
+const params = new URLSearchParams(location.search);
+const MODE = params.get("mode") === "tv" ? "tv" : "pc";
+const LAYOUT = params.get("layout") === "vt" ? "vertical" : "horizontal";
+
+/* ---------- DOM ---------- */
+const pcList = document.getElementById("pcList");
+const clinicBanner = document.getElementById("clinicBanner");
+const verticalList = document.getElementById("verticalList");
+const horizontalSection = document.getElementById("horizontalSection");
+const verticalSection = document.getElementById("verticalSection");
+const tvWrapper = document.getElementById("tvWrapper");
+
+/* ---------- DATETIME (พ.ศ.) ---------- */
+function updateDateTime() {
+  const now = new Date();
+  const yearBE = now.getFullYear() + 543;
+  const date = now.toLocaleDateString("th-TH",
+    { weekday: "long", day: "numeric", month: "long" });
+  const time = now.toLocaleTimeString("th-TH");
+  document.getElementById("datetime").innerText =
+    `${date} พ.ศ. ${yearBE} ${time}`;
+}
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+/* ---------- FILTER ADMIN ---------- */
+function filterByAdmin(data) {
+  const selected = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  return selected.length === 0
+    ? data
+    : data.filter(i => selected.includes(i.orders));
+}
+
+/* ---------- RENDER ---------- */
+let scrollX = 0;
+let scrollY = 0;
+const speed = 0.4;
+
+function render(data) {
+  pcList.innerHTML = "";
+  clinicBanner.innerHTML = "";
+  verticalList.innerHTML = "";
+  scrollX = scrollY = 0;
+
+  let sw = 0, sd = 0, st = 0, wavg = 0;
+
+  data.forEach(i => {
+    sw += i.waiting;
+    sd += i.done;
+    st += i.total;
+    wavg += i.avg_time_min * i.total;
+
+    const cardHTML = `
+      <h3 class="text-lg font-semibold mb-2">${i.name}</h3>
+      <div class="grid grid-cols-3 text-center gap-2 mb-2">
+        <div><p class="text-waiting text-2xl font-bold">${i.waiting}</p><p class="text-xs">รอ</p></div>
+        <div><p class="text-done text-2xl font-bold">${i.done}</p><p class="text-xs">เสร็จ</p></div>
+        <div><p class="text-total text-2xl font-bold">${i.total}</p><p class="text-xs">ทั้งหมด</p></div>
+      </div>
+      <div class="border-t pt-2 text-center text-sm text-gray-600">
+        ⏱ ${i.avg_time_min} นาที / ราย
+      </div>
+    `;
+
+    const card = document.createElement("div");
+    card.className = "bg-gray-50 rounded-xl shadow p-4";
+    card.innerHTML = cardHTML;
+
+    if (LAYOUT === "vertical") {
+      verticalList.appendChild(card);
+    } else if (MODE === "pc") {
+      pcList.appendChild(card);
+    } else {
+      card.classList.add("min-w-[360px]", "flex-shrink-0");
+      clinicBanner.appendChild(card);
+    }
+  });
+
+  document.getElementById("sumWaiting").innerText = sw;
+  document.getElementById("sumDone").innerText = sd;
+  document.getElementById("sumTotal").innerText = st;
+  document.getElementById("sumPercent").innerText =
+    st ? Math.round(sd / st * 100) + "%" : "0%";
+  document.getElementById("sumAvg").innerText =
+    st ? Math.round(wavg / st) : 0;
+
+  if (MODE === "tv" && LAYOUT === "horizontal") {
+    clinicBanner.innerHTML += clinicBanner.innerHTML;
+  }
+}
+
+/* ---------- AUTO SCROLL ---------- */
+function autoScroll() {
+  if (MODE === "tv" && LAYOUT === "horizontal") {
+    scrollX += speed;
+    if (scrollX >= clinicBanner.scrollWidth / 2) scrollX = 0;
+    clinicBanner.style.transform = `translateX(-${scrollX}px)`;
+  }
+
+  if (MODE === "tv" && LAYOUT === "vertical") {
+    scrollY += speed;
+    if (scrollY >= verticalList.scrollHeight - verticalList.clientHeight) {
+      scrollY = 0;
+    }
+    verticalList.scrollTop = scrollY;
+  }
+}
+
+/* ---------- LOAD ---------- */
+function load() {
+  fetch(API_URL)
+    .then(r => r.json())
+    .then(d => render(filterByAdmin(d)))
+    .catch(console.error);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (LAYOUT === "vertical") {
+    horizontalSection.classList.add("hidden");
+    verticalSection.classList.remove("hidden");
+  }
+
+  if (MODE === "tv") {
+    tvWrapper.classList.remove("hidden");
+    setInterval(autoScroll, 16);
+  }
+
+  load();
+  setInterval(load, 30000);
+});
+</script>
+
+</body>
+</html>
