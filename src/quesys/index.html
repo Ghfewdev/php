@@ -12,6 +12,7 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./config.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -33,9 +34,9 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
 <!-- ================= HEADER ================= -->
 <header class="bg-white shadow-md px-6 py-4 flex items-center justify-between">
   <div class="flex items-center gap-4">
-    <a href="./admin.html">
-    <img src="logo.png" class="h-14 w-14 object-contain" />
-  </a>
+    <div id="app">
+    
+  </div>
     <div>
       <h1 class="text-2xl font-bold text-gray-800">
         ระบบแสดงสถานะคิวผู้ป่วย
@@ -108,11 +109,14 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
 <!-- ================= SCRIPT ================= -->
 <script>
 /* ---------- CONFIG ---------- */
-const API_URL = "http://192.168.19.226:3000/queues";
-const STORAGE_KEY = "selectedClinics";
+
+
+const STORAGE_KEY = window.APP_CONFIG.STORAGE_KEY;
 const params = new URLSearchParams(location.search);
+const HOSPITAL = params.get("hospital");
 const MODE = params.get("mode") === "tv" ? "tv" : "pc";
 const LAYOUT = params.get("layout") === "vt" ? "vertical" : "horizontal";
+const API_URL = window.APP_CONFIG.API_URL+HOSPITAL;
 
 /* ---------- DOM ---------- */
 const pcList = document.getElementById("pcList");
@@ -218,12 +222,22 @@ function autoScroll() {
   }
 }
 
+const a = "./admin.html";
+
+document.getElementById("app").innerHTML =
+  `<a href="${a+"?"+"hospital"+"="+HOSPITAL}"><img src="logo.png" class="h-14 w-14 object-contain" /></a>`;
+
+
 /* ---------- LOAD ---------- */
 function load() {
+
+
+  
   fetch(API_URL)
     .then(r => r.json())
     .then(d => render(filterByAdmin(d)))
     .catch(console.error);
+    // console.log(HOSPITAL)
 }
 
 document.addEventListener("DOMContentLoaded", () => {

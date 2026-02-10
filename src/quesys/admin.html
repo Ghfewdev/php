@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./config.js"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen p-6">
@@ -48,18 +49,27 @@
   </div>
 
 <script>
-const API_URL = "http://192.168.19.226:3000/queues";
-const STORAGE_KEY = "selectedClinics";
+
+const params = new URLSearchParams(location.search);
+const HOSPITAL = params.get("hospital");
+const API_URL = window.APP_CONFIG.API_URL+HOSPITAL;
+// const API_URL = window.APP_CONFIG.API_URL;
+const STORAGE_KEY = window.APP_CONFIG.STORAGE_KEY;
 
 let clinics = [];
 
 function loadClinics() {
+
+
+
   fetch(API_URL)
     .then(res => res.json())
     .then(data => {
       clinics = data;
       renderList();
     });
+
+    // console.log(API_URL)
 }
 
 function renderList() {
@@ -108,7 +118,7 @@ function saveSelection() {
 
   const status = document.getElementById("status");
   status.classList.remove("hidden");
-  window.location.href="./index.html";
+  window.location.href=`./index.html?hospital=${HOSPITAL}`;
   setTimeout(() => status.classList.add("hidden"), 2000);
 }
 
