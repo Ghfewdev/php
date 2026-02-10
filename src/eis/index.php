@@ -114,19 +114,19 @@
 <!-- Icon: Hospital Queue System -->
       <a href="click.php?id=queue" target="_blank" class="px-6 py-2">
         <div class="flex flex-col items-center justify-center pb-4">
-        <img src="images/queue.png" alt="cars" width="120" height="120">
+        <img src="images/queue1.png" alt="cars" width="120" height="120">
           <h1 class="text-lg font-bold text-center">
             ระบบคิวโรงพยาบาล
           </h1>
         </div>
       </a>
 
-     <!-- ระบบพลังงาน -->
+     <!-- พลังงาน -->
       <a href="click.php?id=energy" target="_blank" class="px-6 py-2">
         <div class="flex flex-col items-center justify-center pb-4">
         <img src="images/energy.png" alt="cars" width="120" height="120">
           <h1 class="text-lg font-bold text-center">
-            ระบบพลังงาน สนพ. 69
+            รายงานพลังงาน สนพ. 69
           </h1>
         </div>
       </a>
