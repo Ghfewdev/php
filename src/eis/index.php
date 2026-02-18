@@ -1,160 +1,209 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>EIS MSD</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>EIS MSD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f5f6fa;
+    }
+
+    .main-wrapper {
+      max-width: 1300px;
+      width: 100%;
+    }
+
+    .menu-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 25px 15px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      height: 100%;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .menu-img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+    }
+
+    .menu-title {
+      font-weight: 600;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
 
-  <div class="min-h-screen flex flex-col items-center justify-center">
+<body>
 
-    <div class="p-3 mt-10">
-      <p class="text-5xl font-bold">EIS MSD</p>
-    </div>
+<div class="min-vh-100 d-flex flex-column align-items-center">
 
-    <br><br>
+  <!-- Title -->
+  <div class="text-center mt-5 mb-4">
+    <h1 class="fw-bold display-5">EIS MSD</h1>
+  </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-3">
+  <!-- Menu Section -->
+  <div class="container main-wrapper">
 
-      <!-- ตรวจสุขภาพ -->
-      <a href="click.php?id=health" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/health.png" alt="health" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">ตรวจสุขภาพ</h1>
-        </div>
-      </a>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4 justify-content-center text-center">
 
-      <!-- วิ่งล้อมเมือง -->
-      <a href="click.php?id=run" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/run.png" alt="run" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">วิ่งล้อมเมือง</h1>
-        </div>
-      </a>
+      <!-- ตรวจสุขภาพ -->
+      <div class="col">
+        <a href="click.php?id=health" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/health.png" class="menu-img">
+            <div class="menu-title">ตรวจสุขภาพ</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- Health Map -->
-      <a href="click.php?id=map" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/map.png" alt="map" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">Health Map</h1>
-        </div>
-      </a>
+      <!-- วิ่งล้อมเมือง -->
+      <div class="col">
+        <a href="click.php?id=run" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/run.png" class="menu-img">
+            <div class="menu-title">วิ่งล้อมเมือง</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- Policy Tracking -->
-      <a href="click.php?id=policy" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/policy.png" alt="policy" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">Policy Tracking</h1>
-        </div>
-      </a>
+      <!-- Health Map -->
+      <div class="col">
+        <a href="click.php?id=map" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/map.png" class="menu-img">
+            <div class="menu-title">Health Map</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- ความพึงพอใจ -->
-      <a href="click.php?id=good" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/good.png" alt="good" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">ความพึงพอใจ</h1>
-        </div>
-      </a>
+      <!-- Policy Tracking -->
+      <div class="col">
+        <a href="click.php?id=policy" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/policy.png" class="menu-img">
+            <div class="menu-title">Policy Tracking</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- Smart IPD -->
-      <a href="click.php?id=smart" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/smart.png" alt="smart" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">Smart IPD</h1>
-        </div>
-      </a>
+      <!-- ความพึงพอใจ -->
+      <div class="col">
+        <a href="click.php?id=good" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/good.png" class="menu-img">
+            <div class="menu-title">ความพึงพอใจ</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- Data Center -->
-      <a href="click.php?id=datac" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/data.png" alt="data" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">Data Center</h1>
-        </div>
-      </a>
+      <!-- Smart IPD -->
+      <div class="col">
+        <a href="click.php?id=smart" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/smart.png" class="menu-img">
+            <div class="menu-title">Smart IPD</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- งบประมาณ -->
-      <a href="click.php?id=budget" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/budget.png" alt="budget" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">งบประมาณ</h1>
-        </div>
-      </a>
+      <!-- Data Center -->
+      <div class="col">
+        <a href="click.php?id=datac" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/data.png" class="menu-img">
+            <div class="menu-title">Data Center</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- BHZ -->
-      <a href="click.php?id=bhz" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/bhz.png" alt="bhz" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">BHZ</h1>
-        </div>
-      </a>
+      <!-- งบประมาณ -->
+      <div class="col">
+        <a href="click.php?id=budget" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/budget.png" class="menu-img">
+            <div class="menu-title">งบประมาณ</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- Telemedicine -->
-      <a href="click.php?id=tele" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/tele.png" alt="tele" width="120" height="120">
-          <h1 class="text-lg font-bold mt-2">Telemedicine</h1>
-        </div>
-      </a>
+      <!-- BHZ -->
+      <div class="col">
+        <a href="click.php?id=bhz" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/bhz.png" class="menu-img">
+            <div class="menu-title">BHZ</div>
+          </div>
+        </a>
+      </div>
 
-      <!-- รถรับส่ง -->
-      <a href="click.php?id=cars" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-          <img src="images/cars.png" alt="cars" width="120" height="120">
-          <h1 class="text-lg font-bold text-center">
-            รถรับส่ง<br>คนพิการ-ผู้สูงอายุ
-          </h1>
-        </div>
-      </a>
+      <!-- Telemedicine -->
+      <div class="col">
+        <a href="click.php?id=tele" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/tele.png" class="menu-img">
+            <div class="menu-title">Telemedicine</div>
+          </div>
+        </a>
+      </div>
 
-     <!-- ระบบคิว -->
-<!-- Icon: Hospital Queue System -->
-      <a href="click.php?id=queue" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-        <img src="images/queue1.png" alt="cars" width="120" height="120">
-          <h1 class="text-lg font-bold text-center">
-            ระบบคิวโรงพยาบาล
-          </h1>
-        </div>
-      </a>
+      <!-- รถรับส่ง -->
+      <div class="col">
+        <a href="click.php?id=cars" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/cars.png" class="menu-img">
+            <div class="menu-title">รถรับส่ง<br>คนพิการ-ผู้สูงอายุ</div>
+          </div>
+        </a>
+      </div>
 
-     <!-- พลังงาน -->
-<a href="click.php?id=energy" target="_blank" class="px-6 py-2">
-        <div class="flex flex-col items-center justify-center pb-4">
-        <img src="images/energy.png" alt="cars" width="120" height="120">
-          <h1 class="text-lg font-bold text-center">
-            รายงานพลังงาน
-          </h1>
-        </div>
-      </a>
+      <!-- ระบบคิว -->
+      <div class="col">
+        <a href="click.php?id=queue" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/queue1.png" class="menu-img">
+            <div class="menu-title">ระบบคิวโรงพยาบาล</div>
+          </div>
+        </a>
+      </div>
 
-    </div>
+      <!-- พลังงาน -->
+      <div class="col">
+        <a href="click.php?id=energy" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/energy.png" class="menu-img">
+            <div class="menu-title">รายงานพลังงาน</div>
+          </div>
+        </a>
+      </div>
 
-    <br><br>
+    </div>
+  </div>
 
-  </div>
-<center style="margin: 10px;">
-<div class="flex justify-center mt-12">
-  <a href="stats.php"
-     target="_blank"
-     class="inline-flex items-center gap-2
-            bg-green-600 hover:bg-green-700
-            text-yellow-300 font-semibold
-            px-8 py-4 rounded-xl
-            shadow-lg hover:shadow-xl
-            transition duration-200">
+  <!-- ปุ่มสถิติ -->
+  <div class="text-center mt-5 mb-5">
+    <a href="stats.php"
+       target="_blank"
+       class="btn btn-success btn-lg px-5 py-3 fw-semibold text-warning shadow">
+      📊 สถิติการเข้าชม
+    </a>
+  </div>
 
-    <!-- Icon -->
-    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M3 3h2v18H3V3zm16 8h2v10h-2V11zM11 13h2v8h-2v-8zM7 9h2v12H7V9zm8-6h2v18h-2V3z"/>
-    </svg>
+</div>
 
-    สถิติการเข้าชม
-  </a>
-</div></center>
-<br><br><br><br><br>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

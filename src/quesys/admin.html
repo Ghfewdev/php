@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8" />
   <title>Admin - เลือกคลินิกที่แสดง</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./config.js"></script>
-  <script src="./app.js"></script>
+  <script src="./config.js?v=<?= time() ?>"></script>
+  <!-- <script src="./app.js"></script> -->
 </head>
 
 <body class="bg-gray-100 min-h-screen p-6">
@@ -21,26 +22,22 @@
     </p>
 
     <div class="flex gap-3 mb-4">
-      <button
-        onclick="selectAll(true)"
-        class="px-4 py-2 bg-blue-600 text-white rounded-lg"
-      >
+      <button onclick="selectAll(true)" class="px-4 py-2 bg-blue-600 text-white rounded-lg">
         เลือกทั้งหมด
       </button>
-      <button
-        onclick="selectAll(false)"
-        class="px-4 py-2 bg-gray-300 rounded-lg"
-      >
+      <!-- <button class="px-4 py-2 bg-blue-600 text-white rounded-lg" onclick="toggleByLocation('อาคารภูมิพิพัฒน์ ชั้น2')">
+  เลือก/ยกเลิก
+</button> -->
+      <button onclick="selectAll(false)" class="px-4 py-2 bg-gray-300 rounded-lg">
         ยกเลิกทั้งหมด
       </button>
     </div>
 
+    <div id="location-buttons" class="flex flex-wrap gap-2 mb-4"></div>
+
     <div id="clinic-list" class="space-y-3 mb-6"></div>
 
-    <button
-      onclick="saveSelection()"
-      class="w-full py-3 bg-green-600 text-white rounded-xl text-lg font-semibold"
-    >
+    <button onclick="saveSelection()" class="w-full py-3 bg-green-600 text-white rounded-xl text-lg font-semibold">
       💾 บันทึกการตั้งค่า
     </button>
 
@@ -49,82 +46,132 @@
     </p>
   </div>
 
-<script>
+  <script>
 
-const params = new URLSearchParams(location.search);
-const HOSPITAL = params.get("hospital");
-const API_URL = window.APP_CONFIG.API_URL+HOSPITAL;
-// const API_URL = window.APP_CONFIG.API_URL;
-const STORAGE_KEY = window.APP_CONFIG.STORAGE_KEY;
+    const params = new URLSearchParams(location.search);
+    const HOSPITAL = params.get("hospital");
+    const API_URL = window.APP_CONFIG.API_URL + HOSPITAL;
+    // const API_URL = window.APP_CONFIG.API_URL;
+    const STORAGE_KEY = window.APP_CONFIG.STORAGE_KEY;
 
-let clinics = [];
+    let clinics = [];
 
-function loadClinics() {
+    function loadClinics() {
 
 
 
-  fetch(API_URL)
-    .then(res => res.json())
-    .then(data => {
-      clinics = data;
-      renderList();
-    });
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => {
+          clinics = data;
+          renderList();
+          renderLocationButtons();
+          renderList();
+        });
 
-    // console.log(API_URL)
-}
+      // console.log(API_URL)
+    }
 
-function renderList() {
-  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  const container = document.getElementById("clinic-list");
-  container.innerHTML = "";
+    function renderLocationButtons() {
 
-  clinics.forEach(item => {
-    const checked = saved.length === 0 || saved.includes(item.orders);
+      const container = document.getElementById("location-buttons");
+      container.innerHTML = "";
 
-    const row = document.createElement("label");
-    row.className =
-      "flex items-center justify-between border rounded-lg px-4 py-3 cursor-pointer";
+      const locations = [...new Set(clinics.map(c => c.lctaddr))];
 
-    row.innerHTML = `
-      <div>
-        <p class="font-semibold">${item.name}</p>
-        <p class="text-sm text-gray-500">
-          รอ ${item.waiting} | เสร็จ ${item.done}
-        </p>
-      </div>
-      <input
-        type="checkbox"
-        value="${item.orders}"
-        class="w-5 h-5"
-        ${checked ? "checked" : ""}
-      />
-    `;
+      locations.forEach(location => {
+        const btn = document.createElement("button");
+        btn.className =
+          "px-4 py-2 bg-blue-600 text-white rounded-lg text-sm";
+        btn.innerText = location;
 
-    container.appendChild(row);
-  });
-}
+        btn.onclick = () => {
+          toggleByLocation(location);
 
-function selectAll(value) {
-  document
-    .querySelectorAll("#clinic-list input[type=checkbox]")
-    .forEach(cb => (cb.checked = value));
-}
+          const isActive = btn.classList.contains("bg-green-600");
 
-function saveSelection() {
-  const selected = Array.from(
-    document.querySelectorAll("#clinic-list input:checked")
-  ).map(cb => Number(cb.value));
+          if (isActive) {
+            btn.classList.remove("bg-green-600");
+            btn.classList.add("bg-blue-600");
+          } else {
+            btn.classList.remove("bg-blue-600");
+            btn.classList.add("bg-green-600");
+          }
+        };
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
+        container.appendChild(btn);
+      });
+    }
 
-  const status = document.getElementById("status");
-  status.classList.remove("hidden");
-  window.location.href=`./index.html?hospital=${HOSPITAL}`;
-  setTimeout(() => status.classList.add("hidden"), 2000);
-}
 
-loadClinics();
-</script>
+    function renderList() {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      const container = document.getElementById("clinic-list");
+      container.innerHTML = "";
+
+      clinics.forEach(item => {
+        const checked = saved.length === 0 || saved.includes(item.orders);
+
+        const row = document.createElement("label");
+        row.className =
+          "flex items-center justify-between border rounded-lg px-4 py-3 cursor-pointer";
+
+        row.innerHTML = `
+  <div>
+    <p class="font-semibold">${item.name} <br> (${item.lctaddr})</p>
+    <p class="text-sm text-gray-500">
+      รอ ${item.waiting} | เสร็จ ${item.done}
+    </p>
+  </div>
+  <input
+    type="checkbox"
+    value="${item.orders}"
+    data-lctaddr="${item.lctaddr}"
+    class="w-5 h-5"
+    ${checked ? "checked" : ""}
+  />
+`;
+
+
+        container.appendChild(row);
+      });
+    }
+
+    function selectAll(value) {
+      document
+        .querySelectorAll("#clinic-list input[type=checkbox]")
+        .forEach(cb => (cb.checked = value));
+    }
+
+    function toggleByLocation(location) {
+      const checkboxes = document.querySelectorAll(
+        `#clinic-list input[data-lctaddr="${location}"]`
+      );
+
+      const allChecked = [...checkboxes].every(cb => cb.checked);
+
+      checkboxes.forEach(cb => cb.checked = !allChecked);
+    }
+
+
+    function saveSelection() {
+      const selected = Array.from(
+        document.querySelectorAll("#clinic-list input:checked")
+      ).map(cb => Number(cb.value));
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
+
+      const status = document.getElementById("status");
+      status.classList.remove("hidden");
+      window.location.href = `./index.html?hospital=${HOSPITAL}`;
+      setTimeout(() => status.classList.add("hidden"), 2000);
+    }
+
+    loadClinics();
+
+
+  </script>
 
 </body>
+
 </html>

@@ -8,11 +8,12 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>Dashboard - สถานะคิวผู้ป่วย</title>
+  <title>Dashboard - สถานะคิวผู้ป่วย </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./config.js"></script>
+  <script src="./config.js?v=<?= time() ?"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -39,7 +40,7 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
   </div>
     <div>
       <h1 class="text-2xl font-bold text-gray-800">
-        ระบบแสดงสถานะคิวผู้ป่วย
+        ระบบแสดงสถานะคิวผู้ป่วย <p id="text"></p>
       </h1>
       <p class="text-sm text-gray-500">Dashboard ภาพรวมการให้บริการ</p>
     </div>
@@ -107,7 +108,7 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
 </main>
 
 <!-- ================= SCRIPT ================= -->
-<script src="./app.js"></script>
+<script src="./app.js?v=1>"></script>
 
 </body>
 </html>

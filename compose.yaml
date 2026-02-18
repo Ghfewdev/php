@@ -1,4 +1,14 @@
 services:
+  php:
+    build:
+      context: ./php
+    volumes:
+      - ./src:/var/www/html
+    expose:
+      - "9000"
+    networks:
+      - webproxy
+
   nginx:
     image: nginx
     ports:
@@ -6,6 +16,8 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
     networks:
       - webproxy
 

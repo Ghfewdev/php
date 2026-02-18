@@ -12,6 +12,7 @@ const verticalList = document.getElementById("verticalList");
 const horizontalSection = document.getElementById("horizontalSection");
 const verticalSection = document.getElementById("verticalSection");
 const tvWrapper = document.getElementById("tvWrapper");
+const hosp = document.getElementById("hosp");
 
 /* ---------- DATETIME (พ.ศ.) ---------- */
 function updateDateTime() {
@@ -37,7 +38,7 @@ function filterByAdmin(data) {
 /* ---------- RENDER ---------- */
 let scrollX = 0;
 let scrollY = 0;
-const speed = 0.4;
+const speed = 2;
 
 function render(data) {
   pcList.innerHTML = "";
@@ -54,7 +55,7 @@ function render(data) {
     wavg += i.avg_time_min * i.total;
 
     const cardHTML = `
-      <h3 class="text-lg font-semibold mb-2">${i.name}</h3>
+      <h3 class="text-lg text-center font-semibold mb-2">${i.name} <br >(${i.lctaddr})</h3>
       <div class="grid grid-cols-3 text-center gap-2 mb-2">
         <div><p class="text-waiting text-2xl font-bold">${i.waiting}</p><p class="text-xs">รอ</p></div>
         <div><p class="text-done text-2xl font-bold">${i.done}</p><p class="text-xs">เสร็จ</p></div>
@@ -78,6 +79,9 @@ function render(data) {
       clinicBanner.appendChild(card);
     }
   });
+
+  
+  
 
   document.getElementById("sumWaiting").innerText = sw;
   document.getElementById("sumDone").innerText = sd;
@@ -111,6 +115,8 @@ function autoScroll() {
 
 const a = "./admin.html";
 
+
+
 document.getElementById("app").innerHTML =
   `<a href="${a+"?"+"hospital"+"="+HOSPITAL}"><img src="logo.png" class="h-14 w-14 object-contain" /></a>`;
 
@@ -125,6 +131,7 @@ function load() {
     .then(d => render(filterByAdmin(d)))
     .catch(console.error);
     // console.log(HOSPITAL)
+    
 }
 
 document.addEventListener("DOMContentLoaded", () => {
