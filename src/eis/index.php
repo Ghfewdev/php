@@ -171,14 +171,14 @@
       </div>
 
       <!-- ระบบคิว -->
-      <div class="col">
+      <!-- <div class="col">
         <a href="click.php?id=queue" target="_blank" class="text-decoration-none text-dark">
           <div class="menu-card">
             <img src="images/queue1.png" class="menu-img">
-            <div class="menu-title">ระบบคิวโรงพยาบาล</div>
+            <div class="menu-title">ระบบติดตามจำนวน <br> คิวผู้ป่วยของโรงพยาบาล (ทดสอบ)</div>
           </div>
         </a>
-      </div>
+      </div> -->
 
       <!-- พลังงาน -->
       <div class="col">

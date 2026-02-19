@@ -1,7 +1,7 @@
 <?php
 session_start();
 require 'db.php';
-// $password = password_hash("11539", PASSWORD_DEFAULT);
+// $password = password_hash("77416", PASSWORD_DEFAULT);
 
 //     die($password);
 
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="text-center mb-4">
                         <h3 class="fw-bold">เข้าสู่ระบบ</h3>
-                        <!-- <p class="text-muted small">ระบบ EIS</p> -->
+                        <p class=" small text-danger">**หมายเหตุ: user และ password คือ <br> รหัส 5 หลักโรงพยาบาล**</p>
                     </div>
 
                     <?php if(!empty($error)): ?>
@@ -117,4 +117,3 @@ function Home() {
 
 </body>
 </html>
-
