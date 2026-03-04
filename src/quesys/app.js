@@ -3,7 +3,7 @@ const params = new URLSearchParams(location.search);
 const HOSPITAL = params.get("hospital");
 const MODE = params.get("mode") === "tv" ? "tv" : "pc";
 const LAYOUT = params.get("layout") === "vt" ? "vertical" : "horizontal";
-const API_URL = window.APP_CONFIG.API_URL+HOSPITAL;
+const API_URL = window.APP_CONFIG.API_URL + HOSPITAL;
 
 /* ---------- DOM ---------- */
 const pcList = document.getElementById("pcList");
@@ -29,10 +29,11 @@ setInterval(updateDateTime, 1000);
 
 /* ---------- FILTER ADMIN ---------- */
 function filterByAdmin(data) {
+  
   const selected = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
   return selected.length === 0
     ? data
-    : data.filter(i => selected.includes(i.orders));
+    : data.filter(i => String(selected).includes(i.orders));
 }
 
 /* ---------- RENDER ---------- */
@@ -49,10 +50,10 @@ function render(data) {
   let sw = 0, sd = 0, st = 0, wavg = 0;
 
   data.forEach(i => {
-    sw += i.waiting;
-    sd += i.done;
-    st += i.total;
-    wavg += i.avg_time_min * i.total;
+    sw += Number(i.waiting);
+    sd += Number(i.done);
+    st += Number(i.total);
+    wavg += Number(i.avg_time_min * i.total);
 
     const cardHTML = `
       <h3 class="text-lg text-center font-semibold mb-2">${i.name} <br >(${i.lctaddr})</h3>
@@ -80,12 +81,12 @@ function render(data) {
     }
   });
 
-  
-  
 
-  document.getElementById("sumWaiting").innerText = sw;
-  document.getElementById("sumDone").innerText = sd;
-  document.getElementById("sumTotal").innerText = st;
+
+
+  document.getElementById("sumWaiting").innerText = Number(sw);
+  document.getElementById("sumDone").innerText = Number(sd);
+  document.getElementById("sumTotal").innerText = Number(st);
   document.getElementById("sumPercent").innerText =
     st ? Math.round(sd / st * 100) + "%" : "0%";
   document.getElementById("sumAvg").innerText =
@@ -118,20 +119,17 @@ const a = "./admin.html";
 
 
 document.getElementById("app").innerHTML =
-  `<a href="${a+"?"+"hospital"+"="+HOSPITAL}"><img src="logo.png" class="h-14 w-14 object-contain" /></a>`;
+  `<a href="${a + "?" + "hospital" + "=" + HOSPITAL}"><img src="logo.png" class="h-14 w-14 object-contain" /></a>`;
 
 
 /* ---------- LOAD ---------- */
 function load() {
 
-
-  
   fetch(API_URL)
     .then(r => r.json())
-    .then(d => render(filterByAdmin(d)))
+    .then(d => render(filterByAdmin(((d.results)[0]).items)))
     .catch(console.error);
-    // console.log(HOSPITAL)
-    
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -146,5 +144,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   load();
-  setInterval(load, 30000);
+  setInterval(load, 3*6000); //1000 = 1 seccond
 });

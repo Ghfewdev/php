@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./config.js?v=<?= time() ?>"></script>
+  <script src="./config.js?v=3>"></script>
   <!-- <script src="./app.js"></script> -->
 </head>
 
@@ -31,46 +31,92 @@
       <button onclick="selectAll(false)" class="px-4 py-2 bg-gray-300 rounded-lg">
         ยกเลิกทั้งหมด
       </button>
+
+      <button onclick="Home()" class="px-4 bg-red-500 text-white py-2 bg-gray-300 rounded-lg">
+        กลับ
+      </button>
     </div>
 
-    <div id="location-buttons" class="flex flex-wrap gap-2 mb-4"></div>
+  
 
-    <div id="clinic-list" class="space-y-3 mb-6"></div>
 
-    <button onclick="saveSelection()" class="w-full py-3 bg-green-600 text-white rounded-xl text-lg font-semibold">
-      💾 บันทึกการตั้งค่า
-    </button>
 
-    <p id="status" class="text-center text-green-600 mt-4 hidden">
-      ✔ บันทึกเรียบร้อย
-    </p>
+  <div id="location-buttons" class="flex flex-wrap gap-2 mb-4"></div>
+
+  <button onclick="saveSelection()" class="w-full mb-6 py-3 bg-green-600 text-white rounded-xl text-lg font-semibold">
+    💾 บันทึกการตั้งค่า
+  </button>
+
+  <p id="status" class="text-center text-green-600 mt-4 hidden">
+    ✔ บันทึกเรียบร้อย
+  </p>
+
+
+  <div id="clinic-list" class="space-y-3 mb-6"></div>
+
+
   </div>
 
   <script>
 
+
+
+    async function dataEncrypt(jsonObject, privateKey) {
+      const encoder = new TextEncoder();
+
+      // ✅ แปลง JSON → string ก่อน
+      const cleartext = JSON.stringify(jsonObject);
+
+      const keyBytes = encoder.encode(privateKey); // ASCII key (ต้อง 16/24/32 bytes)
+
+      const cryptoKey = await crypto.subtle.importKey(
+        "raw",
+        keyBytes,
+        { name: "AES-CBC" },
+        false,
+        ["encrypt"]
+      );
+
+      const iv = new Uint8Array(16); // IV = 0x00 16 bytes
+
+      const encrypted = await crypto.subtle.encrypt(
+        { name: "AES-CBC", iv: iv },
+        cryptoKey,
+        encoder.encode(cleartext)
+      );
+
+      // ArrayBuffer → Base64
+      const bytes = new Uint8Array(encrypted);
+      let binary = "";
+      bytes.forEach(b => binary += String.fromCharCode(b));
+
+      return btoa(binary);
+    }
+
     const params = new URLSearchParams(location.search);
     const HOSPITAL = params.get("hospital");
     const API_URL = window.APP_CONFIG.API_URL + HOSPITAL;
-    // const API_URL = window.APP_CONFIG.API_URL;
     const STORAGE_KEY = window.APP_CONFIG.STORAGE_KEY;
 
     let clinics = [];
 
     function loadClinics() {
 
-
-
       fetch(API_URL)
         .then(res => res.json())
         .then(data => {
-          clinics = data;
-          renderList();
+          clinics = ((data.results)[0]).items;
+          // renderList();
           renderLocationButtons();
           renderList();
         });
 
-      // console.log(API_URL)
     }
+
+
+
+    // console.log(API_URL)
+    // }
 
     function renderLocationButtons() {
 
@@ -165,6 +211,10 @@
       status.classList.remove("hidden");
       window.location.href = `./index.html?hospital=${HOSPITAL}`;
       setTimeout(() => status.classList.add("hidden"), 2000);
+    }
+
+    function Home() {
+      window.location.href = `./index.html?hospital=${HOSPITAL}`;
     }
 
     loadClinics();

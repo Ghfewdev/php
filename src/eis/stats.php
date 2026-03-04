@@ -48,7 +48,7 @@ foreach ($stats as $row) {
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -97,7 +97,23 @@ foreach ($stats as $row) {
         <?php endif; ?>
       </tbody>
     </table>
+    <br>
+    <div class= "d-flex justify-content-center align-items-center">
+<button onclick="Home()"
+                                    class="btn btn-danger rounded-3">
+                                กลับหน้าหลัก
+                            </button>
+    </div>
+    
+
+                            <script>
+function Home() {
+  window.location.href = './';
+}
+</script>
   </div>
+
+  
 
 </div>
 
