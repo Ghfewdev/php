@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['us_id'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="th">
 
@@ -15,7 +24,9 @@
 
   <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6">
     <h1 class="text-2xl font-bold mb-2">
-      ⚙️ Admin Panel
+      ⚙️ Admin <span class="me-3">
+                 <?= $_SESSION['us_dv'] ?>
+            </span>
     </h1>
     <p class="text-gray-500 mb-6">
       เลือกคลินิกที่ต้องการแสดงบน Dashboard / TV
@@ -32,9 +43,14 @@
         ยกเลิกทั้งหมด
       </button>
 
-      <button onclick="Home()" class="px-4 bg-red-500 text-white py-2 bg-gray-300 rounded-lg">
+      <button onclick="Home()" class="px-4 bg-sky-500 text-white py-2 bg-gray-300 rounded-lg">
         กลับ
       </button>
+
+      <a href="logout.php" class="px-4 bg-red-500 text-white py-2 bg-gray-300 rounded-lg">
+                Logout
+            </a>
+
     </div>
 
   
@@ -209,12 +225,12 @@
 
       const status = document.getElementById("status");
       status.classList.remove("hidden");
-      window.location.href = `./index.html?hospital=${HOSPITAL}`;
+      window.location.href = `./index.php?hospital=${HOSPITAL}`;
       setTimeout(() => status.classList.add("hidden"), 2000);
     }
 
     function Home() {
-      window.location.href = `./index.html?hospital=${HOSPITAL}`;
+      window.location.href = `./index.php?hospital=${HOSPITAL}`;
     }
 
     loadClinics();

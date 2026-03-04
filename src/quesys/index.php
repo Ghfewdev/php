@@ -1,9 +1,19 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['us_id'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!-- 
 index.html                      → 🖥 PC แนวนอน (เหมือนเดิม)
 index.html?mode=tv              → 📺 TV แนวนอน (เหมือนเดิม)
 index.html?layout=vt            → 🖥 PC แนวตั้ง (ไม่ auto scroll)
 index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉพาะคลินิก) 
 -->
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -40,7 +50,9 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
   </div>
     <div>
       <h1 class="text-2xl font-bold text-gray-800">
-        ระบบแสดงสถานะคิวผู้ป่วย <p id="text"></p>
+        ระบบแสดงสถานะคิวผู้ป่วย <span class="me-3">
+                 <?= $_SESSION['us_dv'] ?>
+            </span>
       </h1>
       <p class="text-sm text-gray-500">Dashboard ภาพรวมการให้บริการ</p>
     </div>
@@ -108,7 +120,7 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
 </main>
 
 <!-- ================= SCRIPT ================= -->
-<script src="./app.js?v=2>"></script>
+<script src="./app.js?v=1>"></script>
 
 </body>
 </html>

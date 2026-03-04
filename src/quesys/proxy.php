@@ -71,7 +71,7 @@ function data_encrypt($cleartext, $private_key) {
 // =========================
 // VALIDATE hptcode
 // =========================
-$hptcode = $_GET['hptcode'] ?? '';
+$hptcode = base64_decode($_GET['hptcode']) ?? '';
 
 if (!isset($hptcodelist[$hptcode])) {
     http_response_code(400);

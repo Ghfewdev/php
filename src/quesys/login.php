@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['us_name'] = $user['us_name'];
         $_SESSION['us_dv'] = $user['us_dv'];
 
-        header("Location: datacenter.php");
+        header("Location: admin.php?hospital=" .base64_encode($username));
         exit();
 
     } else {
@@ -90,16 +90,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 🔐 เข้าสู่ระบบ
                             </button>
                             <br>
-                            <button onclick="Home()"
+                            <!-- <button onclick="Home()"
                                     class="btn btn-danger rounded-3">
                                 กลับหน้าหลัก
-                            </button>
+                            </button> -->
 
-                            <script>
+                            <!-- <script>
 function Home() {
   window.location.href = './';
 }
-</script>
+</script> -->
                         </div>
 
                     </form>
@@ -108,7 +108,7 @@ function Home() {
             </div>
 
             <p class="text-center text-muted mt-3 small">
-                © <?= date("Y") ?> ระบบ EIS
+                © <?= date("Y") ?> ระบบ ติดตามจำนวนคิวผู้ป่วยของโรงพยาบาล
             </p>
 
         </div>

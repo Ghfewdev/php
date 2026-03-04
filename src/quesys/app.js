@@ -114,7 +114,7 @@ function autoScroll() {
   }
 }
 
-const a = "./admin.html";
+const a = "./admin.php";
 
 
 
