@@ -58,6 +58,17 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
     </div>
   </div>
 
+  <div class="text-center">
+    <!-- <div class="grid grid-cols-2 gap-1">
+      <div>วิธีการแสดงผล: </div> -->
+  <!-- <div><button>PC</button></div> -->
+  <div><button class="p-2 rounded bg-blue-500 text-white" onclick="toggleTV()">PC / TV</button></div>
+  <!-- <div><button class="p-2 rounded bg-blue-500 text-white" onclick="toggleTV()">TV แนวตั้ง</button></div> -->
+  <!-- <div>Column 4</div> -->
+  <!-- ... more columns will wrap to the next row -->
+<!-- </div> -->
+</div>
+
   <div class="text-right">
     <p class="text-sm text-gray-500">วันเวลาปัจจุบัน</p>
     <p id="datetime" class="text-xl font-semibold text-blue-600"></p>
@@ -98,6 +109,7 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
   <section id="horizontalSection"
     class="bg-white rounded-xl shadow-lg p-4 overflow-hidden">
     <h2 class="text-xl font-bold mb-3 px-2">🏥 สถานะคิวรายคลินิก</h2>
+    
 
     <!-- PC -->
     <div id="pcList"
@@ -120,7 +132,7 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
 </main>
 
 <!-- ================= SCRIPT ================= -->
-<script src="./app.js?v=1>"></script>
+<script src="./app.js?v=5>"></script>
 
 </body>
 </html>

@@ -27,6 +27,26 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
+function toggleTV() {
+  const url = new URL(window.location.href);
+
+  const mode = url.searchParams.get("mode");
+  // const layout = url.searchParams.get("layout");
+
+  if (mode === "tv") {
+    // if (mode === "tv" && layout === "vt") {
+    // เอาออก
+    url.searchParams.delete("mode");
+    // url.searchParams.delete("layout");
+  } else {
+    // เพิ่ม
+    url.searchParams.set("mode", "tv");
+    // url.searchParams.set("layout", "vt");
+  }
+
+  window.location.href = url.toString();
+}
+
 /* ---------- FILTER ADMIN ---------- */
 function filterByAdmin(data) {
   
@@ -144,5 +164,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   load();
-  setInterval(load, 3*6000); //1000 = 1 seccond
+  setInterval(load, 1*6000); //1000 = 1 seccond
 });

@@ -17,9 +17,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $linkname = $_GET['id'];
 
 try {
-    // --------------------
-    // Connect DB (PDO)
-    // --------------------
+
     $pdo = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8",
         $user,
@@ -44,7 +42,7 @@ try {
     }
 
     // --------------------
-    // Update click count
+    // Update total click
     // --------------------
     $update = $pdo->prepare(
         "UPDATE eis_stats 
@@ -52,6 +50,17 @@ try {
          WHERE linkname = :linkname"
     );
     $update->execute(['linkname' => $linkname]);
+
+    // --------------------
+    // Update daily stats
+    // --------------------
+    $daily = $pdo->prepare(
+        "INSERT INTO eis_stats_daily (linkname, stat_date, click_count)
+         VALUES (:linkname, CURDATE(), 1)
+         ON DUPLICATE KEY UPDATE
+         click_count = click_count + 1"
+    );
+    $daily->execute(['linkname' => $linkname]);
 
     // --------------------
     // Redirect

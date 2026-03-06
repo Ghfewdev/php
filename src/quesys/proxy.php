@@ -22,13 +22,13 @@ $hptcodelist = [
     "14641" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxNDY0MSIsImF1ZCI6IjU1NTU1In0.5ocKO5uF_pHN5Vab1lNlVPeiaVpGiDUgyDr-dtcvnCg",
     "11539" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTUzOSIsImF1ZCI6IjU1NTU1In0.2E6CS7e3rW6GdGqT4SEBqhsu_OiJs9FN2sKEhYJRweg",
     "11541" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTU0MSIsImF1ZCI6IjU1NTU1In0.6YStQ5qab0pvDXvQnAX7VxqyEbcYBbA6BljPv8s2Lmk",
-    // "25060" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIyNTA2MCIsImF1ZCI6IjU1NTU1In0.do86wb0eGOR1Y_KXtP0xIRPXcoVF1S62zWxcpAZ8h8o",
-    // "41582" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI0MTU4MiIsImF1ZCI6IjU1NTU1In0.hd6EasO3bORSqHlBS-yI-8VoJQ64_Louwy4CBKRhEtY",
-    // "41522" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI0MTUyMiIsImF1ZCI6IjU1NTU1In0.BDt8wRHxbYa0h1fyr7nXnHYyZefvcZ8eQcSJek1F2fU",
-    // "11538" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTUzOCIsImF1ZCI6IjU1NTU1In0.afRi5uoFBxdX41FOEQ2wCxNEgMwVKMOOfO8C8UIuleE",
-    // "11540" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTU0MCIsImF1ZCI6IjU1NTU1In0.6H35f2E1sOjd_mKipVr2Jxn267VK3ghVgJqZVwDiCtk",
-    // "11536" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTUzNiIsImF1ZCI6IjU1NTU1In0.rU5SYOCE0_wWTNJ7Lpir7tNWRUe9zQOp03UrNB_G4SY",
-    // "15049" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxNTA0OSIsImF1ZCI6IjU1NTU1In0.Rkli3hKTnFYwYjjX-m-64reArpktpaKHaBe0ab_ohAg"
+    "25060" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIyNTA2MCIsImF1ZCI6IjU1NTU1In0.do86wb0eGOR1Y_KXtP0xIRPXcoVF1S62zWxcpAZ8h8o",
+    "41582" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI0MTU4MiIsImF1ZCI6IjU1NTU1In0.hd6EasO3bORSqHlBS-yI-8VoJQ64_Louwy4CBKRhEtY",
+    "41522" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI0MTUyMiIsImF1ZCI6IjU1NTU1In0.BDt8wRHxbYa0h1fyr7nXnHYyZefvcZ8eQcSJek1F2fU",
+    "11538" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTUzOCIsImF1ZCI6IjU1NTU1In0.afRi5uoFBxdX41FOEQ2wCxNEgMwVKMOOfO8C8UIuleE",
+    "11540" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTU0MCIsImF1ZCI6IjU1NTU1In0.6H35f2E1sOjd_mKipVr2Jxn267VK3ghVgJqZVwDiCtk",
+    "11536" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTUzNiIsImF1ZCI6IjU1NTU1In0.rU5SYOCE0_wWTNJ7Lpir7tNWRUe9zQOp03UrNB_G4SY",
+    "15049" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxNTA0OSIsImF1ZCI6IjU1NTU1In0.Rkli3hKTnFYwYjjX-m-64reArpktpaKHaBe0ab_ohAg"
 
     ];
 
@@ -38,13 +38,13 @@ $userList = [
     "14641" => ["user" => "rppmqo", "password" => "123456"], //รพร    
     "11539" => ["user" => "TKSMQO", "password" => "123456"], // รพต
     "11541" => ["user" => "CKPMQO", "password" => "123456"], // รพจ
-    // "25060" => ["user" => "bktmqo", "password" => "123456"], // รพข
-    // "41582" => ["user" => "BNHMQO", "password" => "123456"], // รพบ
-    // "41522" => ["user" => "KSWMQO", "password" => "123456"], // รพป
-    // "11538" => ["user" => "LKBMQO", "password" => "123456"], // รพภ
-    // "11540" => ["user" => "LPTMQO", "password" => "123456"], // รพท ???
-    // "11536" => ["user" => "WKRMQO", "password" => "123456"], // รพว
-    // "15049" => ["user" => "SRTMQO", "password" => "123456"], // รพส
+    "25060" => ["user" => "bktmqo", "password" => "123456"], // รพข
+    "41582" => ["user" => "bnhmqo", "password" => "123456"], // รพบ
+    "41522" => ["user" => "kswmqo", "password" => "123456"], // รพป
+    "11538" => ["user" => "lkbmqo", "password" => "123456"], // รพภ
+    "11540" => ["user" => "lptmqo", "password" => "123456"], // รพท ???
+    "11536" => ["user" => "wkrmqo", "password" => "123456"], // รพว
+    "15049" => ["user" => "srtmqo", "password" => "123456"], // รพส
 ];
 
 // AES key (ต้อง 16 byte)
