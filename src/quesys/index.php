@@ -22,7 +22,7 @@ index.html?mode=tv&layout=vt    → 📺 TV แนวตั้ง (scroll เฉ
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./config.js?v=2"></script>
+  <script src="./config.js?v=9"></script>
 
   <script>
     tailwind.config = {

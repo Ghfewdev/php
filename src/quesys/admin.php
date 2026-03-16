@@ -16,7 +16,7 @@ if (!isset($_SESSION['us_id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./config.js?v=3>"></script>
+  <script src="./config.js?v=8>"></script>
   <!-- <script src="./app.js"></script> -->
 </head>
 

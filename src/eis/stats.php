@@ -226,57 +226,6 @@ echo "<option value='$y' $sel>$y</option>";
 </div>
 
 
-<!-- SUMMARY -->
-
-<div class="max-w-4xl mx-auto grid grid-cols-2 gap-4 mb-6">
-
-<div class="bg-white p-4 rounded shadow text-center">
-
-<div class="text-gray-500">
-ยอดการเข้าชมเดือนนี้
-</div>
-
-<div class="text-3xl font-bold text-green-600">
-<?=number_format($totalClicks)?>
-</div>
-
-</div>
-
-
-<div class="bg-white p-4 rounded shadow">
-
-<div class="font-bold mb-2">
-Top ระบบ
-</div>
-
-<?php foreach($topLinks as $t): ?>
-
-<div class="flex justify-between text-sm">
-
-<span><?=htmlspecialchars($t['linkinfo'])?></span>
-
-<span class="font-bold">
-<?=number_format($t['total'])?>
-</span>
-
-</div>
-
-<?php endforeach ?>
-
-</div>
-
-</div>
-
-
-<!-- GRAPH -->
-
-<div class="max-w-6xl mx-auto bg-white p-6 rounded shadow mb-8">
-
-<canvas id="chart" height="120"></canvas>
-
-</div>
-
-
 <!-- DAILY SUMMARY -->
 
 <div class="max-w-6xl mx-auto bg-white p-6 rounded shadow">
@@ -320,8 +269,57 @@ Top ระบบ
 
 </div>
 
+<!-- GRAPH -->
+
+<div class="max-w-6xl mx-auto bg-white p-6 rounded shadow mb-8 mt-8">
+
+<canvas id="chart" height="120"></canvas>
+
 </div>
 
+
+
+<!-- SUMMARY -->
+
+<div class="max-w-4xl mx-auto grid grid-cols-2 gap-4 mb-6 mt-8">
+
+<div class="bg-white p-4 rounded shadow text-center">
+
+<div class="text-gray-500">
+ยอดการเข้าชมเดือนนี้
+</div>
+
+<div class="text-3xl font-bold text-green-600">
+<?=number_format($totalClicks)?>
+</div>
+
+</div>
+
+<div class="bg-white p-4 rounded shadow">
+
+<div class="font-bold mb-2">
+Top ระบบ
+</div>
+
+<?php foreach($topLinks as $t): ?>
+
+<div class="flex justify-between text-sm">
+
+<span><?=htmlspecialchars($t['linkinfo'])?></span>
+
+<span class="font-bold">
+<?=number_format($t['total'])?>
+</span>
+
+</div>
+
+<?php endforeach ?>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
