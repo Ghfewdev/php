@@ -1,10 +1,10 @@
 <?php
-session_start();
+//session_start();
 
-if (!isset($_SESSION['us_id'])) {
-    header("Location: login.php");
-    exit();
-}
+//if (!isset($_SESSION['us_id'])) {
+//    header("Location: login.php");
+//    exit();
+//}
 ?>
 
 <!DOCTYPE html>
@@ -28,12 +28,12 @@ if (!isset($_SESSION['us_id'])) {
         </span>
 
         <div class="d-flex align-items-center text-white">
-            <span class="me-3">
+            <!-- <span class="me-3">
                 หน่วยงาน: <?= $_SESSION['us_dv'] ?>
             </span>
             <a href="logout.php" class="btn btn-sm btn-light">
                 Logout
-            </a>
+            </a> -->
         </div>
     </div>
 </nav>

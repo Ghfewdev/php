@@ -35,7 +35,7 @@ FROM eis_stats_daily d
 JOIN eis_stats s ON s.linkname = d.linkname
 WHERE d.stat_date BETWEEN :start AND :end
 GROUP BY d.stat_date, d.linkname, s.linkinfo
-ORDER BY d.stat_date
+ORDER BY d.stat_date DESC
 ");
 
 $stmt->execute([
