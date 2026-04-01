@@ -150,7 +150,7 @@ class="hidden absolute top-10 ligth-2 bg-white border p-3 rounded shadow text-xs
 
 
 <section id="summary" class="bg-summary text-white px-3 py-2">
-  <div class="grid grid-cols-5 gap-2 text-center text-xs md:text-sm">
+  <div class="grid grid-cols-4 gap-2 text-center text-xs md:text-sm">
     <div>
       <p id="sumWaiting" class="text-lg font-bold">0</p>
       <p>รอ</p>
@@ -167,10 +167,10 @@ class="hidden absolute top-10 ligth-2 bg-white border p-3 rounded shadow text-xs
       <p id="sumPercent" class="text-lg font-bold text-yellow-400">0%</p>
       <p>สําเร็จ</p>
     </div>
-    <div>
+    <!-- <div>
       <p id="sumAvg" class="text-lg font-bold text-pink-400">0</p>
       <p>นาที</p>
-    </div>
+    </div> -->
   </div>
 </section>
 

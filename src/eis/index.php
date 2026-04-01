@@ -191,14 +191,14 @@
         </a>
       </div>
 
-      <div class="col">
+      <!-- <div class="col">
         <a href="click.php?id=policy27" target="_blank" class="text-decoration-none text-dark">
           <div class="menu-card">
             <img src="images/244.png" class="menu-img">
             <div class="menu-title">ผลดำเนินงาน 24+3 <br> นโยบาย</div>
           </div>
         </a>
-      </div>
+      </div>  -->
 
     </div>
   </div>
