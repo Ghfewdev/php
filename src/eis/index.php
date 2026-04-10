@@ -71,6 +71,16 @@
         </a>
       </div>
 
+      <!-- เตียง -->
+      <div class="col" onclick="alert('User : user@bma\nPass : @1669@')">
+        <a href="click.php?id=bed" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/bed.png" class="menu-img">
+            <div class="menu-title">ระบบเตียง สำนักการแพทย์</div>
+          </div>
+        </a>
+      </div>
+
       <!-- วิ่งล้อมเมือง -->
       <div class="col">
         <a href="click.php?id=run" target="_blank" class="text-decoration-none text-dark">
