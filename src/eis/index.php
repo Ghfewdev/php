@@ -81,6 +81,16 @@
         </a>
       </div>
 
+      <!-- เตียง -->
+      <div class="col">
+        <a href="click.php?id=b_track" target="_blank" class="text-decoration-none text-dark">
+          <div class="menu-card">
+            <img src="images/bgt.png" class="menu-img">
+            <div class="menu-title">ระบบติดตามงบประมาณ</div>
+          </div>
+        </a>
+      </div>
+
       <!-- วิ่งล้อมเมือง -->
       <div class="col">
         <a href="click.php?id=run" target="_blank" class="text-decoration-none text-dark">
